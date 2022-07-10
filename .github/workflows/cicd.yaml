@@ -1,31 +1,30 @@
 name: CI and CD
-
-on: 
- push: 
-   branches:
-     - main
+on:
+  push:
+    branches:
+      - main
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
     steps:
-     - name: Checkout
-       uses: actions/checkout@v2
-     - name: Set Up node
-       uses: actions/setup-node@v1
-       with: 
-          node-version: "10.x" 
-     - name: Install dependencies
-       run: |
-           unset CI
-           npm ci
-     - name: Build project
-       run: npm run build
-     - name: Run tests
-       run: npm run tests
-     - name: Deploy to Github Pages
-       uses: crazy-max/ghaction-github-pages@v1
-       with: 
-         target_branch: gh-pages
-         build_dir: build
-       env:
-         GITHUB_TOKEN: ${{secrets.REPO_TOKEN}}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Install dependencies
+        run: |
+          unset CI
+          npm ci
+      - name: Build project
+        run: npm run build
+      - name: Run tests
+        run: npm run tests
+      - name: Deploy to Github Pages
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: '${{secrets.REPO_TOKEN}}'
